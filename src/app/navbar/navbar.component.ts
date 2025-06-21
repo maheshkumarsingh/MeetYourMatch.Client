@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../_services/account.service';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -11,7 +11,12 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit{
+  ngOnInit(): void {
+    // if(this.accountservice.currentUser()){
+    //   this.router.navigateByUrl('/members'); //If the user is already logged in, redirect them to the members page.
+    // }
+  }
   model:any = {}; //[] is an array, {} is an object
   // loggedIn: boolean = false;
   public accountservice:AccountService = inject(AccountService);

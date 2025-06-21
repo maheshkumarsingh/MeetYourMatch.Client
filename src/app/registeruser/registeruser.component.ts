@@ -12,13 +12,13 @@ import { Toast, ToastrService } from 'ngx-toastr';
 })
 export class RegisteruserComponent implements OnInit {
   user: User = { userName: '', token: '' };
-  usersFromHomeComponent = input.required<User[]>();
-  cancelRegisterMode= output<boolean>();
+  // usersFromHomeComponent = input.required<User[]>();
+  // cancelRegisterMode= output<boolean>();
   accountService = inject(AccountService);
   toastr = inject(ToastrService);
 
   ngOnInit(): void {
-    console.log("RegisteruserComponent initialized", this.usersFromHomeComponent);
+    // console.log("RegisteruserComponent initialized", this.usersFromHomeComponent);
   }
   register(){
     console.log("Registering user with the following data:", this.user);
@@ -37,6 +37,6 @@ export class RegisteruserComponent implements OnInit {
   cancel(){
     this.toastr.info('Registration cancelled'); // Show cancellation message
     this.user = { userName: '', token: '' }; // Reset the user
-    this.cancelRegisterMode.emit(false); // Emit the cancel event
+    // this.cancelRegisterMode.emit(false); // Emit the cancel event
   }
 }

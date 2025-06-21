@@ -18,6 +18,12 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.setCurrentUser();
   }
+
+  // ngOnInit() {
+  // if (this.accountService.currentUser()) {
+  //   this.router.navigateByUrl('/members');
+  // }
+//}
   setCurrentUser() : void{
     const userString = localStorage.getItem('user');
     if(!userString) return;
