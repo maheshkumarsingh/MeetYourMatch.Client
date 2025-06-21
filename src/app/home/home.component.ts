@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
       complete: () => console.log('User data fetch complete')
     });
   }
-  tooggleRegiosterMode(): void {
+  tooggleRegisterMode(): void {
     this.registerMode = !this.registerMode;
   }
   cancelRegisterMode(event: boolean): void {
