@@ -5,10 +5,11 @@ import { NavbarComponent } from "./navbar/navbar.component";
 import { AccountService } from './_services/account.service';
 import { HomeComponent } from "./home/home.component";
 import { FooterComponent } from "./footer/footer.component";
+import { NgxSpinnerComponent } from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent, FooterComponent],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent, NgxSpinnerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

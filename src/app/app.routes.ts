@@ -6,6 +6,8 @@ import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { authGuard } from './_guards/auth.guard';
 import { TestErrosComponent } from './errors/test-erros/test-erros.component';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { preventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -16,10 +18,12 @@ export const routes: Routes = [
         children: [
             { path: 'members', component: MemberListComponent, canActivate: [authGuard] },
             { path: 'members/:username', component: MemberDetailComponent },
+            { path: 'member/edit', component: MemberEditComponent , 
+                canDeactivate:[preventUnsavedChangesGuard]},
             { path: 'lists', component: ListsComponent },
             { path: 'messages', component: MessagesComponent },
         ]
     },
-    {path:'errors', component: TestErrosComponent},
+    { path: 'errors', component: TestErrosComponent },
     { path: '**', component: HomeComponent, pathMatch: 'full' } // Wildcard route for a 404 page,
 ];

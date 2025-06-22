@@ -12,9 +12,9 @@ export class TestErrosComponent {
   baseUrl = 'https://localhost:5001/api/v1/';
   validationErrors: string[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   get404Error() {
     this.http.get(this.baseUrl + 'buggy/not-found').subscribe(
@@ -69,17 +69,31 @@ export class TestErrosComponent {
       error: (error) => {
         console.log('Full error:', error);
 
-        // Handle ModelState errors (ASP.NET Core 400 format)
-        if (error.error?.errors) {
+        // 🔍 Directly check if error is an array
+        if (Array.isArray(error)) {
+          this.validationErrors = error;
+        }
+        // ✅ Case: check error.error (still good to keep for future compatibility)
+        else if (Array.isArray(error.error)) {
+          this.validationErrors = error.error;
+        }
+        // ✅ ModelState-style object
+        else if (error.error?.errors) {
           this.validationErrors = [];
           for (let field in error.error.errors) {
             this.validationErrors.push(...error.error.errors[field]);
           }
-        } else {
+        }
+        // ✅ Plain string message fallback
+        else if (typeof error.error === 'string') {
+          this.validationErrors = [error.error];
+        }
+        // ❌ Fallback
+        else {
           this.validationErrors = ['An unknown error occurred.'];
         }
 
-        console.log(this.validationErrors);
+        console.log('Parsed validation errors:', this.validationErrors);
       },
     });
   }
