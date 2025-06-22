@@ -36,6 +36,7 @@
       </ul>
       @if (this.accountservice.currentUser()) {
         <div dropdown class="dropdown">
+          <img class="me-2" [src]="accountservice.currentUser()?.photoUrl || './assets/user.png'" alt="userMainImage">
             <a dropdownToggle class="dropdown-toggle text-light text-decoration-none">Welcome {{this.accountservice.currentUser()?.userName}}</a>
             <div *dropdownMenu class="dropdown-menu">
                 <a class="dropdown-item" routerLink="/member/edit">Edit profile</a>

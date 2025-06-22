@@ -7,10 +7,11 @@ import { Member } from '../../_models/member';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DatePipe } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
+import { PhotoEditComponent } from "../photo-edit/photo-edit.component";
 
 @Component({
   selector: 'app-member-edit',
-  imports: [TabsModule, DatePipe, FormsModule],
+  imports: [TabsModule, DatePipe, FormsModule, PhotoEditComponent],
   templateUrl: './member-edit.component.html',
   styleUrl: './member-edit.component.css'
 })
@@ -65,5 +66,10 @@ export class MemberEditComponent implements OnInit{
         console.error(error);
       }
     });
+  }
+
+  onMemberChange(event:Member)
+  {
+    this.member = event;
   }
 }

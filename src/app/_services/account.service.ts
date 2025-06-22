@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 })
 export class AccountService {
   http: HttpClient = inject(HttpClient);
-  baseUrl: string = environment.apiUrl+'account/';
+  baseUrl: string = environment.apiUrl + 'account/';
   currentUser: WritableSignal<User | null> = signal<User | null>(null);
 
   public login(model: any): Observable<User> {
@@ -17,8 +17,7 @@ export class AccountService {
     return this.http.post<User>(this.baseUrl + 'login', model).pipe(
       map(user => {
         if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
-          this.currentUser.set(user);
+          this.setCurrentUser(user);
         }
         return user;
       })
@@ -29,12 +28,15 @@ export class AccountService {
     return this.http.post<User>(this.baseUrl + 'register', model).pipe(
       map(user => {
         if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
-          this.currentUser.set(user);
+          this.setCurrentUser(user);
         }
         return user;
       })
     );
+  }
+  setCurrentUser(user: User) {
+    localStorage.setItem('user', JSON.stringify(user));
+    this.currentUser.set(user);
   }
   public logout(): void {
     localStorage.removeItem('user');
