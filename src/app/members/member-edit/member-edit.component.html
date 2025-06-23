@@ -23,10 +23,10 @@
                     <p><b>Age: </b>{{member.age}}</p>
                 </div>
                 <div>
-                    <p><b>Last Active: </b>{{member.updatedAt| date:'yyyy-MM-dd HH:mm'}}</p>
+                    <p><b>Last Active: </b>{{member.updatedAt| timeago}}</p>
                 </div>
                 <div>
-                    <p><b>Member Since: </b>{{member.createdAt| date:'yyyy-MM-dd'}}</p>
+                    <p><b>Member Since: </b>{{member.createdAt| date}}</p>
                 </div>
 
                 <div class="card-footer">
