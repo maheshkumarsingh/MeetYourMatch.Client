@@ -28,4 +28,9 @@
     {{ label() }} must be atmost
     {{control.errors?.['maxlength'].requiredLength}} characters.
   </div>
+  <div
+    *ngIf="control.hasError('isMatching')"
+    class="invalid-feedback text-start"
+  >Passwords must match.
+  </div>
 </div>

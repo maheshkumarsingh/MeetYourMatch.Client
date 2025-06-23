@@ -39,7 +39,7 @@ export class NavbarComponent implements OnInit{
 
   logout(){
     this.accountservice.logout();
-    this.toastr.info('Logged out successfully'); // Show logout message
-    this.router.navigateByUrl('/'); // Navigate to home page after logout
+    this.toastr.info('Logged out successfully','To Home Page'); // Show logout message
+    this.router.navigateByUrl('/home'); // Navigate to home page after logout
   }
 }
