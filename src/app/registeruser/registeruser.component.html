@@ -1,40 +1,44 @@
-<form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
+<form [formGroup]="registerUserForm" (ngSubmit)="register()" autocomplete="off">
   <h2 class="text-center text-primary">Sign Up</h2>
   <hr />
   <div class="mb-3 form-floating">
-      <input
-      type="text"
-      class="form-control"
-      placeholder="Username"
-      name="username"
-      [(ngModel)]="user.userName"
-      required
-      />
-      <label for="username">Username</label>
+    <input [class.is-invalid]="registerUserForm.get('username')?.errors && registerUserForm.get('username')?.touched"
+      type="text" class="form-control" placeholder="Username" formControlName="username" required />
+    <label for="username">Username</label>
+    <div class="invalid-feedback text-start">
+      Please enter a username
+    </div>
   </div>
-  <!-- <div class="mb-3">
-    <label for="">Who is your favrouite match!</label>
-    <select class="form-select">
-      @for (user of usersFromHomeComponent(); track $index) {
-        <option [value]="user.userName">
-          {{ user.userName }}
-        </option>
-      }
-    </select>
-  </div> -->
   <div class="mb-3 form-floating">
-      <input
-      type="password"
-      class="form-control"
-      placeholder="password"
-      name="password"
-      [(ngModel)]="user.pasword"
-      required
-      />
-      <label for="password">Password</label>
+    <input [class.is-invalid]="registerUserForm.get('password')?.errors && registerUserForm.get('password')?.touched"
+      type="password" class="form-control" placeholder="password" formControlName="password" required />
+    <label for="password">Password</label>
+    <div *ngIf="registerUserForm.get('password')?.hasError('required')" class="invalid-feedback text-start">
+      Please enter password
+    </div>
+    <div *ngIf="registerUserForm.get('password')?.hasError('minlength')" class="invalid-feedback text-start">
+      alteast 4 characters
+    </div>
+    <div *ngIf="registerUserForm.get('password')?.hasError('maxlength')" class="invalid-feedback text-start">
+      atmost 12 characters
+    </div>
+  </div>
+  <div class="mb-3 form-floating">
+    <input
+      [class.is-invalid]="registerUserForm.get('confirmPassword')?.errors && registerUserForm.get('confirmPassword')?.touched"
+      type="password" class="form-control" placeholder="confirmPassword" formControlName="confirmPassword" required />
+    <label for="password">Confirm Password</label>
+    <div *ngIf="registerUserForm.get('confirmPassword')?.hasError('required')" class="invalid-feedback text-start">
+      Please enter confirm password
+    </div>
+    <div *ngIf="registerUserForm.get('confirmPassword')?.hasError('ismatching')" class="invalid-feedback text-start">
+      password and confirm password muct match
+    </div>
   </div>
   <div class="form-group text-center">
     <button class="btn btn-success me-2" type="submit">Register</button>
     <button class="btn btn-default me-2" type="reset" (click)="cancel()">Cancel</button>
   </div>
 </form>
+<p>Form Value{{registerUserForm.value|json}}</p>
+<p>Form Value{{registerUserForm.status|json}}</p>
