@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, signal, WritableSignal } from '@angular/core';
+import { computed, inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { User } from '../_models/user';
 import { environment } from '../../environments/environment';
@@ -10,10 +10,17 @@ import { LikesService } from './likes.service';
 })
 export class AccountService {
   http: HttpClient = inject(HttpClient);
+  private likeService = inject(LikesService);
   baseUrl: string = environment.apiUrl + 'account/';
   currentUser: WritableSignal<User | null> = signal<User | null>(null);
-  private likeService = inject(LikesService);
-
+  roles = computed(()=> {
+    const user = this.currentUser();
+    if(user && user.token){
+      const role = JSON.parse(atob(user.token.split('.')[1])).role;
+      return Array.isArray(role)?role:[role];
+    }
+    return [];
+  })
 
   public login(model: any): Observable<User> {
     console.log("service called with model", model);
