@@ -15,17 +15,20 @@ export class MemberMessagesComponent{
   @ViewChild('messageForm') messageForm?: NgForm;
   messagesService = inject(MessagesService);
   userName = input.required<string>();
-  messages = input.required<Message[]>();
+  //messages = input.required<Message[]>();
   toastr = inject(ToastrService);
   messageContent:string ='';
-updateMessages = output<Message>();
+//updateMessages = output<Message>();
 
   sendMessage(){
-    this.messagesService.sendMessage(this.userName(), this.messageContent).subscribe({
-      next:message=>{
-        this.updateMessages.emit(message);
-        this.messageForm?.reset();
-      }
+    this.messagesService.sendMessage(this.userName(), this.messageContent).then(()=>{
+      this.messageForm?.reset();
     })
+    // this.messagesService.sendMessage(this.userName(), this.messageContent).subscribe({
+    //   next:message=>{
+    //     //this.updateMessages.emit(message);
+    //     this.messageForm?.reset();
+    //   }
+    // })
   }
 }

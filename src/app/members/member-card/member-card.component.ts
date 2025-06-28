@@ -3,6 +3,7 @@ import { Member } from '../../_models/member';
 import { RouterLink } from '@angular/router';
 import { LikesService } from '../../_services/likes.service';
 import { ToastrService } from 'ngx-toastr';
+import { PresenceService } from '../../_services/presence.service';
 
 @Component({
   selector: 'app-member-card',
@@ -13,9 +14,10 @@ import { ToastrService } from 'ngx-toastr';
 export class MemberCardComponent {
   private likeService = inject(LikesService);
   member = input.required<Member>();
-  hasLiked = computed(()=> this.likeService.likeIds().includes(this.member().id));
   private toastr = inject(ToastrService);
-
+  private presenceService = inject(PresenceService);
+  hasLiked = computed(()=> this.likeService.likeIds().includes(this.member().id));
+  isOnline = computed(()=> this.presenceService.onlineUsers().includes(this.member().userName));
 
   toggleLike(){
     this.likeService.toggleLike(this.member().id).subscribe({
