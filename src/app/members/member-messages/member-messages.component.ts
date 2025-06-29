@@ -21,7 +21,9 @@ export class MemberMessagesComponent implements AfterViewChecked{
   toastr = inject(ToastrService);
   messageContent:string ='';
   //updateMessages = output<Message>();
-  
+  loading = false;
+
+
   ngAfterViewChecked(): void {
     this.scrollToBottom();
   }
@@ -32,10 +34,11 @@ export class MemberMessagesComponent implements AfterViewChecked{
     }
   }
   sendMessage(){
+    this.loading = true;
     this.messagesService.sendMessage(this.userName(), this.messageContent).then(()=>{
       this.messageForm?.reset();
       this.scrollToBottom();
-    })
+    }).finally(()=> this.loading = false);
     // this.messagesService.sendMessage(this.userName(), this.messageContent).subscribe({
     //   next:message=>{
     //     //this.updateMessages.emit(message);
