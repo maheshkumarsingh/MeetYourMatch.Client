@@ -42,7 +42,7 @@ export class MessagesService {
         this.messageThread.update(messages => {
           messages.forEach(message => {
             if (!message.dateRead) {
-              message.dateRead = new Date(Date.now());
+              message.dateRead = new Date(Date.now()).toString();
             }
           })
           return messages;
