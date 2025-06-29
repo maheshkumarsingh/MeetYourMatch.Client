@@ -1,6 +1,7 @@
 import { NgFor, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-test-erros',
@@ -9,7 +10,7 @@ import { Component } from '@angular/core';
   styleUrl: './test-erros.component.css',
 })
 export class TestErrosComponent {
-  baseUrl = 'https://localhost:5001/api/v1/';
+  baseUrl = environment.apiUrl;
   validationErrors: string[] = [];
 
   constructor(private http: HttpClient) { }
